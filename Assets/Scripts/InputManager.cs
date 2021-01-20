@@ -11,7 +11,7 @@ public class InputManager : MonoSingleton<InputManager>
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
         if (Input.GetKey(KeyCode.Mouse0))
         {

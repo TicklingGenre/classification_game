@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 4043110199804848200}
   m_Layer: 0
   m_Name: BRICK 1
-  m_TagString: Untagged
+  m_TagString: Brick
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -111,7 +111,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   material: {fileID: 2100000, guid: 8c5ec1f7615f2b546987f13b57569f4e, type: 2}
-  brickColor: {r: 0, g: 0, b: 0, a: 0}
   brickName: 
 --- !u!54 &4043110199804848200
 Rigidbody:

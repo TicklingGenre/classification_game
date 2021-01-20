@@ -11,6 +11,7 @@ public class Brick : MonoBehaviour
     public Material material;
     //public Color brickColor;
     public string brickName;
+    public bool isPicked = false;
 
     
     public void Init()
@@ -21,5 +22,9 @@ public class Brick : MonoBehaviour
         _label.text = brickName;
         //material.color = brickColor;
         GetComponent<MeshRenderer>().material = material;
+    }
+
+    private void Update()
+    {
     }
 }

@@ -12,6 +12,8 @@ public class Brick : MonoBehaviour
     //public Color brickColor;
     public string brickName;
     public bool isPicked = false;
+    public bool isDropped = false;
+    public bool caught = false;
 
     
     public void Init()
@@ -26,5 +28,21 @@ public class Brick : MonoBehaviour
 
     private void Update()
     {
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if(other.gameObject.tag == "Bin" && isDropped)
+        {
+            caught = true;
+            DestroyBrick();
+            other.gameObject.GetComponent<Bin>().CheckBrick(brickName);
+        }
+    }
+
+    void DestroyBrick()
+    {
+        InputManager.pickedBrick = null;
+        Destroy(this.gameObject);
     }
 }

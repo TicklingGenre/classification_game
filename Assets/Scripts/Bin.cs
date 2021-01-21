@@ -6,49 +6,38 @@ public class Bin : MonoBehaviour
 {
     public char binColorTag;
 
-    private GameObject _catchObject;
-    private bool dumpable = false;
-    private bool caught = false;
-
-    private void OnTriggerEnter(Collider other)
+    private GameObject _caughtBrick;
+    public void CheckBrick(string brickName)
     {
-        _catchObject = other.gameObject;
-        if(_catchObject.tag == "Brick" && _catchObject.GetComponent<Brick>().isPicked)
+        if(brickName[0] == binColorTag)
         {
-            dumpable = true;
+            Debug.Log("Correct Brick");
+            GameManager.AddPoints(true);
+            GameManager.correctBricks.Add(brickName);
+        }
+        else
+        {
+            Debug.Log("Incorrect Brick");
+            GameManager.AddPoints(false);
+            GameManager.incorrectBricks.Add(brickName);
         }
     }
 
     private void OnTriggerStay(Collider other)
     {
-        if (dumpable)
+        if(other.gameObject.tag == "Brick")
         {
-            if (Input.GetKeyUp(KeyCode.Mouse0))
+            if (other.gameObject.GetComponent<Brick>().caught)
             {
-                Dump();
+                _caughtBrick = other.gameObject;
+                DumpBrick(_caughtBrick);
             }
         }
     }
 
-    void Dump()
+    void DumpBrick(GameObject brick)
     {
-        caught = true;
-    }
-
-    IEnumerator Catch()
-    {
-        Vector3 newPos = new Vector3(transform.position.x, _catchObject.transform.position.y, _catchObject.transform.position.z - 1f);
-        _catchObject.transform.Translate(newPos);
-        yield return new WaitForSeconds(0.1f);
-    }
-
-    private void Update()
-    {
-        if (caught)
-        {
-            StartCoroutine("Catch");
-            Destroy(_catchObject);
-        }
-            
+        string brickName = brick.GetComponent<Brick>().brickName;
+        CheckBrick(brickName);
     }
 }

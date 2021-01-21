@@ -4,16 +4,16 @@ using UnityEngine;
 
 public class InputManager : MonoSingleton<InputManager>
 {
-    private GameObject _pickedBrick;
+    public static GameObject pickedBrick;
     // Start is called before the first frame update
     void Start()
     {
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
-        if (Input.GetKey(KeyCode.Mouse0))
+        if (Input.GetKeyDown(KeyCode.Mouse0))
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
@@ -21,29 +21,50 @@ public class InputManager : MonoSingleton<InputManager>
             {
                 if(hit.collider.gameObject.tag == "Brick")
                 {
-                    _pickedBrick = hit.collider.gameObject;
-                    _pickedBrick.GetComponent<Brick>().isPicked = true;
-                    MoveBrick(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+                    pickedBrick = hit.collider.gameObject;
+                    
+                    
                     //StartCoroutine("MoveBrick", Camera.main.ScreenToWorldPoint(Input.mousePosition));
                 }
             }
         }
+        if (Input.GetKey(KeyCode.Mouse0))
+        {
+            MoveBrick(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+        }
         if (Input.GetKeyUp(KeyCode.Mouse0))
         {
-            if(_pickedBrick != null)
-            {
-                _pickedBrick.GetComponent<Brick>().isPicked = false;
-                _pickedBrick = null;
-            }
+            DropBrick();
         }
         
     }
 
+    void PickBrick()
+    {
+        if(pickedBrick != null)
+        {
+            pickedBrick.GetComponent<Brick>().isPicked = true;
+            pickedBrick.GetComponent<Brick>().isDropped = false;
+            pickedBrick.GetComponent<Rigidbody>().isKinematic = true;
+        }
+    }
+    void DropBrick()
+    {
+        if (pickedBrick != null)
+        {
+            pickedBrick.GetComponent<Brick>().isPicked = false;
+            pickedBrick.GetComponent<Brick>().isDropped = true;
+            pickedBrick.GetComponent<Rigidbody>().isKinematic = false;
+            pickedBrick = null;
+        }
+    }
     void MoveBrick(Vector3 mousePos)
     {
-
-        Vector3 objPos = new Vector3(mousePos.x, mousePos.y, _pickedBrick.transform.position.z);
-        _pickedBrick.transform.position = objPos;
+        if (pickedBrick != null)
+        {
+            Vector3 objPos = new Vector3(mousePos.x, mousePos.y, pickedBrick.transform.position.z);
+            pickedBrick.transform.position = objPos;
+        }
         //yield return new WaitForSeconds(0.1f);
     }
 }

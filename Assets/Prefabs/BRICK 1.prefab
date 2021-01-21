@@ -112,6 +112,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   material: {fileID: 2100000, guid: 8c5ec1f7615f2b546987f13b57569f4e, type: 2}
   brickName: 
+  isPicked: 0
+  isDropped: 0
+  caught: 0
 --- !u!54 &4043110199804848200
 Rigidbody:
   m_ObjectHideFlags: 0

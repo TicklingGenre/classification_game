@@ -19,7 +19,6 @@ public class BrickLauncher : MonoSingleton<BrickLauncher>
     private int _green;
 
 
-    // Start is called before the first frame update
     void Start()
     {
         _timeStep = spawnTimeInSecs;
@@ -31,8 +30,6 @@ public class BrickLauncher : MonoSingleton<BrickLauncher>
         brickGreen = (brickGreen == null) ? Color.green : brickGreen;
         
     }
-
-    // Update is called once per frame
     void FixedUpdate()
     {
         if(Time.time - _timeStep >= spawnTimeInSecs)
@@ -74,16 +71,14 @@ public class BrickLauncher : MonoSingleton<BrickLauncher>
 
     void InstantiateBrick(string name, Color color, Material material)
     {
-        GameObject b = GameObject.Instantiate(brick);   //, launchPosition);
+        GameObject b = GameObject.Instantiate(brick);
         b.transform.position = launchPosition.transform.position;
         Brick br = b.GetComponent<Brick>();
         br.brickName = name;
-        //br.brickColor = color;
         br.material = material;
         br.Init();
 
         Transform t = b.GetComponent<Transform>();
-        //t.eulerAngles = new Vector3(t.eulerAngles.x, t.eulerAngles.y, Random.Range(0, 180));
         Vector3 force = new Vector3(Random.Range(-1f, 1f), 1f, 0f);
         b.GetComponent<Rigidbody>().AddForce(force * brickForce);
     }

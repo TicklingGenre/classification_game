@@ -5,12 +5,7 @@ using UnityEngine;
 public class InputManager : MonoSingleton<InputManager>
 {
     public static GameObject pickedBrick;
-    // Start is called before the first frame update
-    void Start()
-    {
-    }
 
-    // Update is called once per frame
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Mouse0))
@@ -22,9 +17,6 @@ public class InputManager : MonoSingleton<InputManager>
                 if(hit.collider.gameObject.tag == "Brick")
                 {
                     pickedBrick = hit.collider.gameObject;
-                    
-                    
-                    //StartCoroutine("MoveBrick", Camera.main.ScreenToWorldPoint(Input.mousePosition));
                 }
             }
         }
@@ -65,6 +57,5 @@ public class InputManager : MonoSingleton<InputManager>
             Vector3 objPos = new Vector3(mousePos.x, mousePos.y, pickedBrick.transform.position.z);
             pickedBrick.transform.position = objPos;
         }
-        //yield return new WaitForSeconds(0.1f);
     }
 }

@@ -28,7 +28,6 @@ public class GameManager : MonoSingleton<GameManager>
     {
         if(Time.time - _timeStamp >= 1 && !gameOver)
         {
-            //Debug.Log("one Second Passed");
             UpdateTimer(--_timeTillGameEnd);
             _timeStamp = (int) Time.time;
         }

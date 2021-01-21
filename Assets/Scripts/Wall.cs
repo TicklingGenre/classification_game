@@ -22,8 +22,4 @@ public class Wall : MonoBehaviour
         }
         transform.position = wallPos;
     }
-    private void Update()
-    {
-        
-    }
 }
